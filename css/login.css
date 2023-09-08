@@ -1,0 +1,38 @@
+/* .form-container {
+  height: 100%;
+  width: 100%;
+}
+
+.form-box {
+  display: grid;
+  background-color: #d61b0c;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+}
+
+.form div {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.form input {
+  padding: 1rem 8rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn-container {
+  width: 100%;
+  display: inline-block !important;
+  margin-left: 30rem;
+}
+
+.login-btn {
+  cursor: pointer;
+  border: none;
+  padding: 1rem 3rem;
+} */

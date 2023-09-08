@@ -1,0 +1,51 @@
+.home-icon-box {
+  /* display: block; */
+  width: 100%;
+  height: 60%;
+}
+.home-icons {
+  /* opacity: 0; */
+  display: grid;
+  /* display: none; */
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4rem;
+  padding: 4rem 10rem;
+  /* background-color: red; */
+  width: 100%;
+  height: 100%;
+  margin-top: 10rem;
+}
+
+.home-icon {
+  cursor: pointer;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  /* background-color: #d61b0c; */
+  box-shadow: 0 0 32px 0px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.home-icon img {
+  height: 80px;
+  width: 80px;
+}
+
+.home-icon a {
+  display: grid;
+  gap: 2rem;
+}
+
+.home-icon p {
+  color: #d61b0c;
+  text-align: center;
+}
+
+.active {
+  color: #000 !important;
+}

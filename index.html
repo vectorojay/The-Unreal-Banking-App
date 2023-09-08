@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/transfer.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Unreal Bank</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  </head>
+  <body>
+    <main class="main">
+      <div class="container">
+        <div>
+          <h1 class="heading-primary">Discover UBA</h1>
+        </div>
+        <div>
+          <h3 class="heading-tertiary">The Unreal Bank App</h3>
+          <p class="heading-paragraph">
+            Where Fictional Banking Meets Real Fun!
+          </p>
+          <br />
+          <p class="heading-paragraph-base">
+            Create Your Unreal Account Number and Embrace a World of Safe,
+            Whimsical Banking. <br />
+            Transact, Playfully Send and Receive Fictional Funds, and Let
+            Your Imagination Run Wild
+          </p>
+          <p class="heading-paragraph-base">
+            It's all <em><strong>UNREAL</strong></em> after all!
+          </p>
+        </div>
+        <div>
+          <button class="btn btn-register-cta">
+            Get Your Fictional Account
+          </button>
+          <button class="btn btn-login-cta">Login</button>
+        </div>
+      </div>
+
+      <!-- Login form -->
+      <div class="form-container form-login hidden">
+        <div class="form-box">
+          <form class="form" action="">
+            <div class="form-control div-1">
+              <label for="username">Enter Username </label>
+              <input
+                class="login-username login-input"
+                type="text"
+                name="username"
+              />
+              <small class="form-error">Error message</small>
+            </div>
+            <div class="form-control div-2">
+              <label for="pin">Enter Pin </label>
+              <input class="login-pin login-input" type="number" name="pin" />
+              <small class="form-error">Error message</small>
+            </div>
+
+            <div class="btn-container mb-unset">
+              <p>Don't Have an Account? <span><a class="register-link" href="#" style="color: red; text-decoration: underline;">Register</a></span></p>
+              <button class="login-btn">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Registration-form -->
+      <div class="form-container form-register hidden">
+        <div class="form-box">
+          <form class="form" action="">
+            <div class="form-control div-1">
+              <label for="name">Full Name </label>
+              <input
+                class="register-name register-input"
+                type="text"
+                name="name"
+              />
+              <small class="form-error">Error message</small>
+            </div>
+            <div class="form-control div-1">
+              <label for="username">Username </label>
+              <input
+                class="register-username register-input"
+                type="text"
+                name="username"
+              />
+              <small class="form-error">Error message</small>
+            </div>
+            <div class="form-control div-2">
+              <label for="pin">Pin </label>
+              <input
+                class="register-pin register-input"
+                type="number"
+                name="pin"
+              />
+              <small class="form-error">Error message</small>
+            </div>
+            <div class="form-control div-2">
+              <label for="pin">Confirm Pin </label>
+              <input
+                class="register-confirm-pin register-input"
+                type="number"
+                name="pin"
+              />
+              <small class="form-error">Error message</small>
+            </div>
+
+            <div class="btn-container mb-unset">
+               <p>Have an Account? <br> <span><a class="login-link" href="#" style="color: red; text-decoration: underline; justify-self: start;">Login</a></span></p>
+              <button class="register-btn">Get Account!</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="congrats-modal hidden">
+        <p class="congrats-text">
+          Congratulations, Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Similique, unde?
+          <div class="congrats-btn-box">
+          <button>Continue to Login</button>
+          </div>
+        </p>
+      </div>
+
+      <!-- Overlay -->
+      <div class="overlay hidden">
+        <div class="error-flex hidden">
+          <span>This is where I want the error message to be displayed</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Dashboard -->
+    <header class="header hidden">
+      <div class="dis-flex">
+        <nav class="side-nav dis-grid">
+          <ul class="nav-items dis-grid">
+            <li class="nav-item dis-flex">
+              <img class="nav-icon" src="regular/house.svg" alt="" />
+              <a class="nav-link nav-link-home active" href="" data-tab="1">Home</a>
+            </li>
+            <li class="nav-item dis-flex">
+              <img class="nav-icon" src="regular/share-fat.svg" alt="" />
+              <a class="nav-link nav-link-transfer" href="" data-tab="2">Transfer</a>
+            </li>
+            <li class="nav-item dis-flex">
+              <img
+                class="nav-icon"
+                src="regular/clock-counter-clockwise.svg"
+                alt=""
+              /><a class="nav-link nav-link-history" href="" data-tab="3">History</a>
+            </li>
+            <li class="nav-item dis-flex">
+              <img class="nav-icon" src="regular/device-mobile.svg" alt="" /><a
+                class="nav-link nav-link-topup"
+                href="" data-tab="4"
+                >Top Up</a
+              >
+            </li>
+            <li class="nav-item dis-flex">
+              <img class="nav-icon" src="regular/users.svg" alt="" />
+              <a class="nav-link nav-link-contacts" href="" data-tab="5">Contacts</a>
+            </li>
+            <li class="nav-item dis-flex">
+              <img class="nav-icon" src="regular/gear.svg" alt="" /><a
+                class="nav-link nav-link-settings"
+                href="" data-tab="6"
+                >Settings</a
+              >
+            </li>
+            <a class="log-out" href="">Log out</a>
+          </ul>
+        </nav>
+        <div style="width: 88%; margin-left: auto">
+          <div class="top-nav">
+            <div class="dis-flex gap-sm">
+              <div class="logo">
+                <img src="images/UBA-Logo-1.png" alt="" />
+              </div>
+              <div class="top-nav-box dis-flex">
+                <div class="greeting-box dis-flex">
+                  <div>
+                    <p class="greeting">Good afternoon, Vector</p>
+                  </div>
+                  <div class="top-nav-icons dis-flex">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      fill="#777"
+                      viewBox="0 0 256 256"
+                    >
+                      <path
+                        d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"
+                      ></path>
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      fill="#777"
+                      viewBox="0 0 256 256"
+                    >
+                      <path
+                        d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216Z"
+                      ></path>
+                    </svg>
+
+                    <div class="user-dp">
+                      <img src="images/customer-6.jpg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="balances dis-flex">
+              <div class="balances-box dis-flex">
+                <div class="balance dis-grid">
+                  <div class="bal-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="#777"
+                      viewBox="0 0 256 256"
+                    >
+                      <path
+                        d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48ZM136,176H120a8,8,0,0,1,0-16h16a8,8,0,0,1,0,16Zm64,0H168a8,8,0,0,1,0-16h32a8,8,0,0,1,0,16ZM32,88V64H224V88Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="dis-grid">
+                    <span class="bal-descrption">Current Balance</span>
+                    <span class="current-bal">N0.00</span>
+                  </div>
+                </div>
+                <div class="balance dis-grid">
+                  <div class="bal-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="#92e8a4"
+                      viewBox="0 0 256 256"
+                    >
+                      <path
+                        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm37.66,117.66-32,32a8,8,0,0,1-11.32,0l-32-32a8,8,0,0,1,11.32-11.32L120,148.69V88a8,8,0,0,1,16,0v60.69l18.34-18.35a8,8,0,0,1,11.32,11.32Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="dis-grid">
+                    <span class="bal-descrption">Incomes</span>
+                    <span class="incomes-bal">N0.00</span>
+                  </div>
+                </div>
+                <div class="balance dis-grid">
+                  <div class="bal-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="#d61b0c"
+                      viewBox="0 0 256 256"
+                    >
+                      <path
+                        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm37.66,101.66a8,8,0,0,1-11.32,0L136,107.31V168a8,8,0,0,1-16,0V107.31l-18.34,18.35a8,8,0,0,1-11.32-11.32l32-32a8,8,0,0,1,11.32,0l32,32A8,8,0,0,1,165.66,125.66Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="dis-grid">
+                    <span class="bal-descrption">Expenses</span>
+                    <span class="expenses-bal">N0.00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="date-box">
+                <span class="date"> 24th Mar, 2023 11:24</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Home Section -->
+          <div class="home-icon-box dashboard-content dashboard-1 dashboard-active">
+            <div class="home-icons">
+              <div class="home-icon" data-tab="1">
+                <a class="home-icon-link home-icon-link-home" href="" data-tab="1">
+                  <p>Home</p>
+                  <img src="regular/house.svg" alt="" />
+                </a>
+              </div>
+
+              <div class="home-icon" data-tab="2">
+                <a class="home-icon-link home-icon-link-transfer" href="" data-tab="2"">
+                  <p>Transfer</p>
+                  <img src="regular/share-fat.svg" alt="" />
+                </a>
+              </div>
+
+              <div class="home-icon" data-tab="3">
+                <a class="home-icon-link home-icon-link-history" href="" data-tab="3">
+                  <p>History</p>
+                  <img src="regular/clock-counter-clockwise.svg" alt="" />
+                </a>
+              </div>
+
+              <div class="home-icon" data-tab="4">
+                <a class="home-icon-link home-icon-link-loan" href="" data-tab="4">
+                  <p>Top Up</p>
+                  <img src="regular/phone.svg" alt="" />
+                </a>
+              </div>
+
+              <div class="home-icon" data-tab="5">
+                <a class="home-icon-link home-icon-link-contacts" href="" data-tab="5">
+                  <p>Contacts</p>
+                  <img src="regular/users.svg" alt="" />
+                </a>
+              </div>
+
+              <div class="home-icon" data-tab="6">
+                <a class="home-icon-link home-icon-link-settings" href="" data-tab="6">
+                  <p>Settings</p>
+                  <img src="regular/gear.svg" alt="" />
+                </a>
+              </div>
+            </div>
+            <a href="" class="delete-account">Delete account</a>
+          </div>
+
+          <!-- TRANSFER SECTION -->
+          <div class="transfer-container dashboard-content dashboard-2">
+            <div class="transfer-box dis-grid">
+              <!-- <p class="form-heading">Transfer</p> -->
+              <form class="transfer-form" action="">
+                <div style="display: flex; margin-bottom: 5rem; gap: 3rem">
+                  <div class="transfer-action dis-grid">
+                    <label class="form-label" for="recipient"
+                      >Recipient's account number</label
+                    >
+                    <input
+                      class="input-account"
+                      type="number"
+                      name="recipient"
+                    />
+                  </div>
+
+                  <div class="transfer-action dis-grid">
+                    <label class="form-label" for="amount">Amount</label>
+                    <input class="input-amount" type="number" name="amount" />
+                  </div>
+                </div>
+                <div style="display: flex; gap: 3rem">
+                  <div class="transfer-action dis-grid">
+                    <label class="form-label" for="purpose">Purpose</label>
+                    <input class="input-purpose" type="text" name="purpose" />
+                  </div>
+                  <div class="transfer-action dis-grid">
+                    <label class="form-label" for="pin">Enter Pin</label>
+                    <input class="input-pin" type="number" name="pin" />
+                  </div>
+                </div>
+                <button class="transfer-btn">Transfer</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- History -->
+          <div class="transact-history-box dashboard-content dashboard-3">
+            <h3 class="heading-tertiary transaction-heading">
+              Transaction History
+            </h3>
+            <div class="transaction-titles">
+              <div class="transaction-title"><h2>ID</h2></div>
+              <div class="transaction-title"><h2>DATE</h2></div>
+              <div class="transaction-title"><h2>TYPE</h2></div>
+              <div class="transaction-title">
+                <h2>TRANSACTION DETAILS</h2>
+              </div>
+              <div class="transaction-title"><h2>AMOUNT</h2></div>
+            </div>
+            <div class="transactions">
+              <div class="transaction">
+                <div class="transaction-title id"><p>#126</p></div>
+                <div class="transaction-title date"><p>23/09/2023</p></div>
+                <div class="transaction-title type type-deposit">
+                  <p>DEPOSIT</p>
+                </div>
+                <div class="transaction-title details">
+                  <p>Sunglasses part payment</p>
+                </div>
+                <div class="transaction-title type-deposit amount">
+                  <p>N4500</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
