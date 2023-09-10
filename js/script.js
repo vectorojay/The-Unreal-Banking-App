@@ -195,6 +195,8 @@ btnTransfer.addEventListener("click", function (e) {
     displayBalance(currentUser);
     displayIncome(currentUser);
     displayExpense(currentUser);
+
+    localStorage.setItem("storedUsers", JSON.stringify(storedUsers));
   }
 });
 
