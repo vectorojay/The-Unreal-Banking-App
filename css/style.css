@@ -143,7 +143,8 @@ body {
   align-items: center;
   background-color: #fff;
   color: #d61b0c;
-  height: 20rem;
+  height: 40rem;
+  width: 60rem;
   padding: 2rem;
   border-radius: 5px;
 }

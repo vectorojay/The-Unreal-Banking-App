@@ -40,6 +40,7 @@ const receiverAccTransfer = document.querySelector(".input-account");
 const purpTransfer = document.querySelector(".input-purpose");
 const pinTransfer = document.querySelector(".input-pin");
 const amountTransfer = document.querySelector(".input-amount");
+const loginBtnCont = document.querySelector(".btn-cont-login");
 
 const storedUsers = JSON.parse(localStorage.getItem("storedUsers")) || [];
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -91,33 +92,30 @@ const cutFirstName = function (fullName) {
   return fullName.split(" ")[0];
 };
 
-// Display Date
-const dateDislay = function () {
-  const now = new Date();
-  console.log(now);
-  const date = `${now.getDate()}`.padStart(2, 0);
-  const month = `${now.getMonth() + 1}`.padStart(2, 0);
-  const year = now.getFullYear();
-  const type = mov > 0 ? "deposit" : "transfer";
+// Format Date
+const dateFormat = function (dateNew) {
+  const date = `${dateNew.getDate()}`.padStart(2, 0);
+  const month = `${dateNew.getMonth() + 1}`.padStart(2, 0);
+  const year = `${dateNew.getFullYear()}`;
+
+  return `${date}/${month}/${year}`;
 };
+
+console.log(dateFormat(new Date()));
 
 // Displaying movements
 const displayMovements = (user) => {
   transactionsContainer.innerHTML = "";
 
   user.movements.forEach((mov, i) => {
-    const now = new Date();
-    console.log(now);
-    const date = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
     const type = mov > 0 ? "deposit" : "transfer";
 
     const displayDetails = user.details[i];
+    const displayDates = dateFormat(user.movementDates[i]);
 
     const html = ` <div class="transaction">
                 <div class="transaction-title id"><p>#00${i + 1}</p></div>
-                <div class="transaction-title date"><p>${date}/${month}/${year}</p></div>
+                <div class="transaction-title date"><p>${displayDates}</p></div>
                 <div class="transaction-title type type-${type}">
                  <p>${type.toUpperCase()}</p>
                 </div>
@@ -179,8 +177,16 @@ btnTransfer.addEventListener("click", function (e) {
   const pinTransferVal = pinTransfer.value;
 
   const recipient = storedUsers.find((user) => user.account == receiverAccVal);
-  const accExists = storedUsers.some((user) => user.account == receiverAccVal);
-  console.log(accExists);
+
+  if (
+    receiverAccVal === "" ||
+    amountTransferVal === "" ||
+    purpTransferVal === "" ||
+    pinTransferVal === ""
+  ) {
+    alert("KINDLY INPUT YOUR TRANSACTION DETAILS!");
+    return;
+  }
 
   if (!recipient) {
     alert("ACCOUNT DOES NOT EXIST!");
@@ -197,10 +203,6 @@ btnTransfer.addEventListener("click", function (e) {
     pinTransfer.value =
       "";
 
-  if (!accExists) {
-    alert("ACCOUNT NUMBER DOES NOT EXIST!");
-  }
-
   if (
     recipient &&
     amountTransferVal > 0 &&
@@ -208,10 +210,15 @@ btnTransfer.addEventListener("click", function (e) {
     recipient?.account !== currentUser.account &&
     currentUser.balance > amountTransferVal
   ) {
+    // Update transfer
     currentUser.movements.push(-amountTransferVal);
     currentUser.details.push(purpTransferVal);
     recipient.movements.push(amountTransferVal);
     recipient.details.push(purpTransferVal);
+
+    // Update Date
+    currentUser.movementDates.push(new Date());
+    recipient.movementDates.push(new Date());
 
     displayMovements(currentUser);
     displayBalance(currentUser);
@@ -236,6 +243,7 @@ btnTransfer.addEventListener("click", function (e) {
 overlay.addEventListener("click", function (e) {
   formLogin.classList.add("hidden");
   formRegister.classList.add("hidden");
+  congratsModal.classList.add("hidden");
   overlay.classList.add("hidden");
 
   clearInputFields();
@@ -339,17 +347,9 @@ btnRegister.addEventListener("click", function (e) {
       username: registerUsernameInputValue,
       pin: registerPinInputValue,
       account: randomNumber,
-      movements: [-2450, 200, 4500, 30000, -8000, 5000, 7600, 900],
-      details: [
-        `Domino's Pizza Large`,
-        "Acceptance fee",
-        "For Data",
-        "Books payment",
-        "March Loan",
-        `Mom's shopping funds`,
-        "Sneakers",
-        "Chez payment",
-      ],
+      movements: [],
+      movementDates: [],
+      details: [],
     };
 
     storedUsers.push(newUser);
@@ -369,10 +369,17 @@ btnRegister.addEventListener("click", function (e) {
     )}, <br> Your account number is <span style="color: green; font-weight: bold;">${randomNumber}.</span> <br> <br> Kindly memorize your account number for future <em>Fictional</em> transactions. <br> But if you can't, then copy it and save it somewhere.😉`;
 
     formRegister.classList.add("hidden");
-    overlay.classList.add("hidden");
+    // overlay.classList.add("hidden");
 
     // formLogin.classList.remove("hidden");
     // overlay.classList.remove("hidden");
+    loginBtnCont.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      congratsModal.classList.add("hidden");
+      formLogin.classList.remove("hidden");
+      //  overlay.classList.add("hidden");
+    });
   }
 });
 
@@ -594,3 +601,5 @@ const displayDate = setInterval(function () {
 
 // const num = 655424345;
 // console.log(new Intl.NumberFormat("en-US", options).format(num));
+
+console.log(new Date());
