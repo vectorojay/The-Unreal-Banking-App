@@ -91,6 +91,16 @@ const cutFirstName = function (fullName) {
   return fullName.split(" ")[0];
 };
 
+// Display Date
+const dateDislay = function () {
+  const now = new Date();
+  console.log(now);
+  const date = `${now.getDate()}`.padStart(2, 0);
+  const month = `${now.getMonth() + 1}`.padStart(2, 0);
+  const year = now.getFullYear();
+  const type = mov > 0 ? "deposit" : "transfer";
+};
+
 // Displaying movements
 const displayMovements = (user) => {
   transactionsContainer.innerHTML = "";
@@ -169,6 +179,14 @@ btnTransfer.addEventListener("click", function (e) {
   const pinTransferVal = pinTransfer.value;
 
   const recipient = storedUsers.find((user) => user.account == receiverAccVal);
+  const accExists = storedUsers.some((user) => user.account == receiverAccVal);
+  console.log(accExists);
+
+  if (!recipient) {
+    alert("ACCOUNT DOES NOT EXIST!");
+    return;
+  }
+
   console.log(currentUser);
   console.log(recipient.movements);
   console.log(currentUser.balance);
@@ -179,6 +197,10 @@ btnTransfer.addEventListener("click", function (e) {
     pinTransfer.value =
       "";
 
+  if (!accExists) {
+    alert("ACCOUNT NUMBER DOES NOT EXIST!");
+  }
+
   if (
     recipient &&
     amountTransferVal > 0 &&
@@ -186,9 +208,9 @@ btnTransfer.addEventListener("click", function (e) {
     recipient?.account !== currentUser.account &&
     currentUser.balance > amountTransferVal
   ) {
-    recipient.movements.push(amountTransferVal);
     currentUser.movements.push(-amountTransferVal);
     currentUser.details.push(purpTransferVal);
+    recipient.movements.push(amountTransferVal);
     recipient.details.push(purpTransferVal);
 
     displayMovements(currentUser);
@@ -197,6 +219,16 @@ btnTransfer.addEventListener("click", function (e) {
     displayExpense(currentUser);
 
     localStorage.setItem("storedUsers", JSON.stringify(storedUsers));
+    return;
+  }
+
+  if (currentUser.balance < amountTransferVal) {
+    alert("YOU HAVE INSUFFICIENT FUNDS!");
+    return;
+  }
+
+  if (pinTransferVal !== currentUser.pin) {
+    alert("INCORRECT PIN!");
   }
 });
 
