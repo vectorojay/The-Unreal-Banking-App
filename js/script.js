@@ -41,7 +41,8 @@ const purpTransfer = document.querySelector(".input-purpose");
 const pinTransfer = document.querySelector(".input-pin");
 const amountTransfer = document.querySelector(".input-amount");
 const loginBtnCont = document.querySelector(".btn-cont-login");
-
+const topUpAmt = document.querySelector(".topup-input");
+const topUpBtn = document.querySelector(".topup-btn");
 const storedUsers = JSON.parse(localStorage.getItem("storedUsers")) || [];
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -94,6 +95,7 @@ const cutFirstName = function (fullName) {
 
 // Format Date
 const dateFormat = function (dateNew) {
+  // const dateNew = new Date();
   const date = `${dateNew.getDate()}`.padStart(2, 0);
   const month = `${dateNew.getMonth() + 1}`.padStart(2, 0);
   const year = `${dateNew.getFullYear()}`;
@@ -101,7 +103,26 @@ const dateFormat = function (dateNew) {
   return `${date}/${month}/${year}`;
 };
 
-console.log(dateFormat(new Date()));
+// Setting Time of Day
+const setDayTime = function (day) {
+  const now = new Date();
+  const currentHour = now.getHours();
+
+  if (currentHour >= 5 && currentHour < 12) {
+    day = "Morning";
+  } else if (currentHour >= 12 && currentHour < 18) {
+    day = "Afternoon";
+  } else {
+    day = "Evening";
+  }
+
+  return day;
+};
+
+// const now = new Date();
+// console.log(now.getDate());
+
+// console.log(dateFormat(new Date()));
 
 // Displaying movements
 const displayMovements = (user) => {
@@ -111,7 +132,7 @@ const displayMovements = (user) => {
     const type = mov > 0 ? "deposit" : "transfer";
 
     const displayDetails = user.details[i];
-    const displayDates = dateFormat(user.movementDates[i]);
+    const displayDates = user.movementDates[i];
 
     const html = ` <div class="transaction">
                 <div class="transaction-title id"><p>#00${i + 1}</p></div>
@@ -166,6 +187,32 @@ const displayExpense = (user) => {
   );
 };
 
+const curDate = dateFormat(new Date());
+// Implementing TopUp
+topUpBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const topUpAmtVal = Number(topUpAmt.value);
+
+  console.log(topUpAmtVal);
+  console.log(currentUser);
+
+  if (topUpAmtVal <= 50000) {
+    currentUser.movements.push(topUpAmtVal);
+    currentUser.movementDates.push(curDate);
+    currentUser.details.push("Loan Top Up");
+
+    displayMovements(currentUser);
+    displayBalance(currentUser);
+    displayExpense(currentUser);
+    displayIncome(currentUser);
+
+    localStorage.setItem("storedUsers", JSON.stringify(storedUsers));
+  }
+
+  topUpAmt.value = "";
+});
+
 // Implementing Transfers
 
 btnTransfer.addEventListener("click", function (e) {
@@ -217,8 +264,8 @@ btnTransfer.addEventListener("click", function (e) {
     recipient.details.push(purpTransferVal);
 
     // Update Date
-    currentUser.movementDates.push(new Date());
-    recipient.movementDates.push(new Date());
+    currentUser.movementDates.push(curDate);
+    recipient.movementDates.push(curDate);
 
     displayMovements(currentUser);
     displayBalance(currentUser);
@@ -438,7 +485,7 @@ btnLogin.addEventListener("click", function (e) {
       //   "You have logged in succesfully!";
       // alert("Success");
       displayPage();
-      greetingEl.textContent = `Good Afternoon, ${cutFirstName(
+      greetingEl.textContent = `Good ${setDayTime("morning")}, ${cutFirstName(
         currentUser.fullname
       )}`;
       displayMovements(currentUser);

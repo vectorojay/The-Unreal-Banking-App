@@ -228,3 +228,70 @@ small {
 /* z-index: 10; */
 /* width: 100%; */
 /* } */
+
+.topup-box {
+  height: 75vh;
+  padding-top: 10rem;
+}
+
+.topup-content-box {
+  text-align: center;
+}
+
+.topup-heading {
+  text-align: center;
+}
+
+.topup-secondary-heading {
+  margin-bottom: 3rem;
+}
+
+.topup-instructions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.topup-instructions span {
+  color: #d61b0c;
+  font-weight: bolder;
+}
+
+.topup-form {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  gap: 1rem;
+}
+
+.topup-form label {
+  font-size: 4rem;
+  padding-bottom: 6rem;
+}
+
+.topup-amount-box {
+  padding-top: 2rem;
+}
+
+.topup-input {
+  padding: 1rem;
+  font-size: 2rem;
+  height: 4.5rem;
+  width: 30rem;
+}
+
+.topup-form button {
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  background-color: #d61b0c;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+.topup-form button:hover {
+  transform: scale(1.1);
+}
