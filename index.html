@@ -148,6 +148,7 @@
         </div>
       </div>
 
+      <!-- Congrats message -->
       <div class="congrats-modal hidden">
         <p class="congrats-text">
           Congratulations, Lorem ipsum dolor sit amet consectetur adipisicing
@@ -168,6 +169,25 @@
 
     <!-- Dashboard -->
     <header class="header hidden">
+      <!-- Display Image Modal -->
+      <div class="display-img-modal hidden">
+        <div class="user-dp-img-add-box">
+          <img class="user-dp-img-add" src="images/customer-6.jpg" alt="" />
+        </div>
+        <div style="height: 0.4px; width: 100%; background-color: red"></div>
+        <div class="add-photo-box">
+          <ion-icon class="add-photo-icon" name="camera-outline"></ion-icon>
+          <button class="add-photo-btn">Change photo</button>
+        </div>
+      </div>
+
+      <!-- Overlay -->
+      <div class="overlay-dash hidden">
+        <div class="error-flex hidden">
+          <span>This is where I want the error message to be displayed</span>
+        </div>
+      </div>
+
       <div class="dis-flex">
         <nav class="side-nav dis-grid">
           <ul class="nav-items dis-grid">
@@ -253,7 +273,11 @@
                     </svg>
 
                     <div class="user-dp">
-                      <img src="images/customer-6.jpg" alt="" />
+                      <img
+                        class="user-dp-img"
+                        src="images/customer-6.jpg"
+                        alt=""
+                      />
                     </div>
                   </div>
                 </div>
@@ -496,5 +520,13 @@
     </header>
 
     <script src="js/script.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
   </body>
 </html>

@@ -6,6 +6,7 @@ const btnTransfer = document.querySelector(".transfer-btn");
 const formLogin = document.querySelector(".form-login");
 const formRegister = document.querySelector(".form-register");
 const overlay = document.querySelector(".overlay");
+const overlayDash = document.querySelector(".overlay-dash");
 const registerNameInput = document.querySelector(".register-name");
 const registerUsernameInput = document.querySelector(".register-username");
 const registerPinInput = document.querySelector(".register-pin");
@@ -43,6 +44,10 @@ const amountTransfer = document.querySelector(".input-amount");
 const loginBtnCont = document.querySelector(".btn-cont-login");
 const topUpAmt = document.querySelector(".topup-input");
 const topUpBtn = document.querySelector(".topup-btn");
+const displayImgCont = document.querySelector(".user-dp-img");
+const displayImgAdd = document.querySelector(".user-dp-img-add");
+const addDisplayPhotoBtn = document.querySelector(".add-photo-btn");
+const displayImgModal = document.querySelector(".display-img-modal");
 const storedUsers = JSON.parse(localStorage.getItem("storedUsers")) || [];
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -69,6 +74,8 @@ const displayPage = function () {
 const hidePage = function () {
   mainPage.classList.remove("hidden");
   homePage.classList.add("hidden");
+  overlayDash.classList.add("hidden");
+  overlay.classList.add("hidden");
 
   sideNavLinks.forEach((link) => link.classList.remove("active"));
   document.querySelector(".nav-link").classList.add("active");
@@ -188,6 +195,47 @@ const displayExpense = (user) => {
 };
 
 const curDate = dateFormat(new Date());
+
+// Reveal Add Photo Modal
+displayImgCont.addEventListener("click", function (e) {
+  e.preventDefault();
+  console.log("clicked dp");
+  displayImgModal.classList.remove("hidden");
+  overlayDash.classList.remove("hidden");
+});
+
+// Implement change display image
+addDisplayPhotoBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = "image/*";
+
+  fileInput.addEventListener("change", function () {
+    const selectedFile = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      const displayPicData = event.target.result;
+      currentUser.displayPicture = displayPicData;
+
+      // Update the display picture element
+      const displayPicElement = document.querySelector(".user-dp-img");
+
+      displayPicElement.src = displayPicData;
+      displayImgAdd.src = displayPicData;
+
+      // Update local storage
+      localStorage.setItem("storedUsers", JSON.stringify(storedUsers));
+    };
+
+    reader.readAsDataURL(selectedFile);
+  });
+
+  fileInput.click();
+});
+
 // Implementing TopUp
 topUpBtn.addEventListener("click", function (e) {
   e.preventDefault();
@@ -292,9 +340,19 @@ overlay.addEventListener("click", function (e) {
   formRegister.classList.add("hidden");
   congratsModal.classList.add("hidden");
   overlay.classList.add("hidden");
+  displayImgModal.classList.add("hidden");
 
   clearInputFields();
   clearErrorMessages();
+});
+
+// Hide Dashboard Overlay
+overlayDash.addEventListener("click", function (e) {
+  formLogin.classList.add("hidden");
+  formRegister.classList.add("hidden");
+  congratsModal.classList.add("hidden");
+  overlayDash.classList.add("hidden");
+  displayImgModal.classList.add("hidden");
 });
 
 // Reveal Login Form
@@ -303,9 +361,11 @@ btnLoginCta.addEventListener("click", function (e) {
 
   formRegister.classList.add("hidden");
   overlay.classList.add("hidden");
+  overlayDash.classList.add("hidden");
 
   formLogin.classList.remove("hidden");
   overlay.classList.remove("hidden");
+  overlayDash.classList.add("hidden");
 });
 
 registerLink.addEventListener("click", function (e) {
@@ -315,9 +375,11 @@ registerLink.addEventListener("click", function (e) {
 
   formLogin.classList.add("hidden");
   overlay.classList.add("hidden");
+  overlayDash.classList.add("hidden");
 
   formRegister.classList.remove("hidden");
   overlay.classList.remove("hidden");
+  overlayDash.classList.add("hidden");
 });
 
 loginLink.addEventListener("click", function (e) {
@@ -338,9 +400,11 @@ btnRegisterCta.addEventListener("click", function (e) {
 
   formLogin.classList.add("hidden");
   overlay.classList.add("hidden");
+  overlayDash.classList.add("hidden");
 
   formRegister.classList.remove("hidden");
   overlay.classList.remove("hidden");
+  overlayDash.classList.add("hidden");
 });
 
 registerInputEl.forEach((input) => {
@@ -397,6 +461,7 @@ btnRegister.addEventListener("click", function (e) {
       movements: [],
       movementDates: [],
       details: [],
+      displayPicture: "",
     };
 
     storedUsers.push(newUser);
@@ -488,6 +553,16 @@ btnLogin.addEventListener("click", function (e) {
       greetingEl.textContent = `Good ${setDayTime("morning")}, ${cutFirstName(
         currentUser.fullname
       )}`;
+
+      const displayPicElement = document.querySelector(".user-dp-img");
+
+      if (currentUser.displayPicture) {
+        displayPicElement.src = currentUser.displayPicture;
+        displayImgAdd.src = currentUser.displayPicture;
+      } else {
+        displayPicElement.src = "images/customer-6.jpg";
+      }
+
       displayMovements(currentUser);
       displayBalance(currentUser);
       displayIncome(currentUser);
