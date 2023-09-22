@@ -707,6 +707,8 @@ btnLogin.addEventListener("click", function (e) {
 
   // displayMovements(currentUser);
   formLogin.classList.add("hidden");
+  overlay.classList.add("hidden");
+  overlayDash.classList.add("hidden");
 });
 
 // Implementing Logout
