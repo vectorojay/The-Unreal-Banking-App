@@ -29,6 +29,7 @@ header {
   align-items: center;
   justify-content: center;
   gap: 4.8rem;
+  margin-top: 15rem;
 }
 
 .nav-item {
@@ -268,4 +269,12 @@ header {
 
 .type-deposit {
   color: #92e8a4 !important;
+}
+
+.countdown-timer {
+  margin-top: 3rem;
+}
+
+#countdown {
+  color: #d61b0c;
 }

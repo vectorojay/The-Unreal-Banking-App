@@ -240,25 +240,81 @@ addDisplayPhotoBtn.addEventListener("click", function (e) {
 topUpBtn.addEventListener("click", function (e) {
   e.preventDefault();
 
-  const topUpAmtVal = Number(topUpAmt.value);
+  const lastTopUpDate = new Date(currentUser.lastTopUpDate);
+  const today = new Date();
+  if (
+    lastTopUpDate.getDate() === today.getDate() &&
+    lastTopUpDate.getMonth() === today.getMonth() &&
+    lastTopUpDate.getFullYear() === today.getFullYear()
+  ) {
+    alert("You've already requested a top-up today.");
+    topUpAmt.value = "";
+  } else {
+    const topUpAmtVal = Number(topUpAmt.value);
 
-  console.log(topUpAmtVal);
-  console.log(currentUser);
+    console.log(topUpAmtVal);
+    console.log(currentUser);
 
-  if (topUpAmtVal <= 50000) {
-    currentUser.movements.push(topUpAmtVal);
-    currentUser.movementDates.push(curDate);
-    currentUser.details.push("Loan Top Up");
+    if (topUpAmtVal <= 50000) {
+      currentUser.movements.push(topUpAmtVal);
+      currentUser.movementDates.push(curDate);
+      currentUser.details.push("Loan Top Up");
+      currentUser.lastTopUpDate = today.toISOString();
 
-    displayMovements(currentUser);
-    displayBalance(currentUser);
-    displayExpense(currentUser);
-    displayIncome(currentUser);
+      displayMovements(currentUser);
+      displayBalance(currentUser);
+      displayExpense(currentUser);
+      displayIncome(currentUser);
 
-    localStorage.setItem("storedUsers", JSON.stringify(storedUsers));
+      localStorage.setItem("storedUsers", JSON.stringify(storedUsers));
+    } else {
+      alert("Invalid top-up amount! Please enter an amount N50,000 or below");
+    }
+
+    const countdownElement = document.getElementById("countdown");
+    const countdownContainer = document.querySelector(".countdown-timer");
+
+    // Set the countdown time in milliseconds (24 hours)
+    const countdownTime = 24 * 60 * 60 * 1000;
+
+    // Calculate the timestamp of the next available top-up
+    const nextTopUpTime =
+      new Date(currentUser.lastTopUpDate).getTime() + countdownTime;
+
+    // Function to update the countdown
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const timeDifference = nextTopUpTime - now;
+
+      const hours = Math.floor(
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor(
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      countdownElement.textContent = `${hours
+        .toString()
+        .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+
+      if (timeDifference > 0) {
+        setTimeout(updateCountdown, 1000);
+      } else {
+        countdownContainer.style.display = "none";
+      }
+
+      // Update the nextTopUpTime in localStorage
+      currentUser.nextTopUpTime = nextTopUpTime;
+      localStorage.setItem("storedUsers", JSON.stringify(storedUsers));
+    }
+
+    updateCountdown();
+
+    topUpAmt.value = "";
   }
-
-  topUpAmt.value = "";
 });
 
 // Implementing Transfers
@@ -415,7 +471,7 @@ loginInputEl.forEach((input) => {
   input.addEventListener("input", clearErrorMessages);
 });
 
-// Validating Inputs
+// Registration: Validating Inputs
 btnRegister.addEventListener("click", function (e) {
   e.preventDefault();
   const registerNameInputValue = registerNameInput.value.trim();
@@ -462,9 +518,14 @@ btnRegister.addEventListener("click", function (e) {
       movementDates: [],
       details: [],
       displayPicture: "",
+      lastTopUpDate: null,
+      nextTopUpTime: null,
     };
 
     storedUsers.push(newUser);
+
+    // Initialize nextTopUpTime for the new user (e.g., set it to the current time)
+    newUser.nextTopUpTime = new Date().getTime() - 1; // Set it to a past time to allow immediate top-up
 
     localStorage.setItem("storedUsers", JSON.stringify(storedUsers));
 
@@ -550,6 +611,7 @@ btnLogin.addEventListener("click", function (e) {
       //   "You have logged in succesfully!";
       // alert("Success");
       displayPage();
+
       greetingEl.textContent = `Good ${setDayTime("morning")}, ${cutFirstName(
         currentUser.fullname
       )}`;
@@ -644,6 +706,7 @@ btnLogin.addEventListener("click", function (e) {
   // };
 
   // displayMovements(currentUser);
+  formLogin.classList.add("hidden");
 });
 
 // Implementing Logout
